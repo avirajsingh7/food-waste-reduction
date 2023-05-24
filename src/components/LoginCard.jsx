@@ -1,4 +1,6 @@
-import logo from "../../assets/logo/logo.ico";
+import { Link } from "react-router-dom";
+
+
 function LoginCard(props) {
   function handleRegisterButtonClick() {
     props.isLoginCardVisible(prevValue => {

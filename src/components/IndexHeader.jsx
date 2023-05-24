@@ -1,4 +1,4 @@
-import logo from "../../assets/logo/logo.ico";
+import logo from "../assets/logo/logo.ico";
 
 function IndexHeader(props) {
 
@@ -16,10 +16,10 @@ function IndexHeader(props) {
       
   return (
     <header>
-      <div className="flex items-center">
+      <div className="flex items-center pt-5">
         <div className="flex items-center gap-5 ml-20">
           <img src={logo} alt="logo-img" className="h-20 w-auto" />
-          <span className=" text-4xl brand-name">WasteZero</span>
+          <span className=" text-4xl brand-name text-textColor">WasteZero</span>
         </div>
         <div className="flex items-center gap-4 ml-auto mr-20">
           <button

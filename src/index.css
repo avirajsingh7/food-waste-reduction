@@ -1,5 +1,16 @@
+.index-page{
+  background-size: cover;
+  background-position: center;
+}
+
 .brand-name{
     font-family: 'Mogra', cursive;
+}
+
+.index-slogan{
+    font-family: 'Mogra', cursive;
+    text-align: center;
+    color: #f8f7f7;
 }
 .blur-background{
   position: fixed;
@@ -17,12 +28,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background-color: white;
+  background-color: #f8f7f7;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
+
+
 
 @tailwind base;
 @tailwind components;

@@ -1,7 +1,7 @@
-
-import IndexHeader from "../components/header/IndexHeader";
-import RegisterCard from "../components/header/RegisterCard";
-import LoginCard from "../components/header/LoginCard";
+import IndexHeader from "../components/IndexHeader";
+import RegisterCard from "../components/RegisterCard";
+import LoginCard from "../components/LoginCard";
+import backgroundImage from "../assets/images/indexPage.jpg";
 import { useState } from "react";
 
 function IndexPage() {
@@ -9,11 +9,17 @@ function IndexPage() {
   const [registerCardVisible, setRegisterCardVisible] = useState(false);
 
   return (
-    <div className="relative">
+    <div
+      className="relative index-page w-screen h-screen"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <IndexHeader
         isLoginCardVisible={setLoginCardVisible}
         isRegisterCardVisible={setRegisterCardVisible}
       />
+      <p className="mt-40 text-6xl index-slogan">
+        Together, we can end food waste.
+      </p>
       {loginCardVisible && (
         <LoginCard
           isLoginCardVisible={setLoginCardVisible}
