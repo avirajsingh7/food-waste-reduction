@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
-
+import React,{ useState } from "react";
+import {account} from '../appwrite/appwriteConfig';
+import { useNavigate } from "react-router-dom";
 
 function LoginCard(props) {
+
+  const navigate = useNavigate();
   function handleRegisterButtonClick() {
     props.isLoginCardVisible(prevValue => {
       return !prevValue;
@@ -10,6 +14,24 @@ function LoginCard(props) {
       return !prevValue;
     })
   }
+
+  const [user, setuser] = useState({
+    email:"",
+    password:""
+  })
+
+  const loginUser = async(e)=> {
+    e.preventDefault()
+    try {
+    await account.createEmailSession(user.email,user.password);
+    navigate('/find-restaurants');
+  } catch (error) {
+    console.log(error)
+    console.log("You were here")
+  }
+}
+
+
   return (
     <div>
       <div className="blur-background"></div>
@@ -36,6 +58,12 @@ function LoginCard(props) {
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  onChange={(e)=>{
+                    setuser({
+                      ...user,
+                      email:e.target.value
+                    })
+                  }}
                 />
               </div>
             </div>
@@ -57,6 +85,12 @@ function LoginCard(props) {
                   autoComplete="current-password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  onChange={(e)=>{
+                    setuser({
+                      ...user,
+                      password:e.target.value
+                    })
+                  }}
                 />
               </div>
             </div>
@@ -90,7 +124,8 @@ function LoginCard(props) {
               <button
                 type="submit"
                 className="flex w-full  justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-hoverColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-              >
+                onClick={loginUser}
+             >
                 Login
               </button>
             </div>
