@@ -1,7 +1,13 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import logo from "../assets/logo/logo.ico";
+import {account} from '../appwrite/appwriteConfig';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom";
+
 function RegisterCard(props) {
 
+
+  const navigate = useNavigate();
   function handleLoginButtonClick() {
     props.isRegisterCardVisible((prevValue) => {
       return !prevValue;
@@ -10,6 +16,36 @@ function RegisterCard(props) {
       return !prevValue;
     });
   }
+
+  const [user, setuser] = useState({
+    name:"",
+    email:"",
+    password:""
+  })
+
+  const signupUser = async(e)=>{
+    e.preventDefault();
+    const promise = account.create(
+      uuidv4(),
+      user.email,
+      user.password,
+      user.name
+    )
+
+    promise.then(
+      function(response){
+        console.log(response)
+        navigate('/find-restaurants');
+
+      },
+      function(error){
+        console.log(error)
+        console.log("It is error")
+      }
+    )
+  }
+
+
 
   return (
     <div>
@@ -37,6 +73,12 @@ function RegisterCard(props) {
                   autoComplete="name"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  onChange={(e)=>{
+                    setuser({
+                      ...user,
+                      name:e.target.value
+                    })
+                  }}
                 />
               </div>
             </div>
@@ -56,6 +98,12 @@ function RegisterCard(props) {
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  onChange={(e)=>{
+                    setuser({
+                      ...user,
+                      email:e.target.value
+                    })
+                  }}
                 />
               </div>
             </div>
@@ -77,6 +125,12 @@ function RegisterCard(props) {
                   autoComplete="current-password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  onChange={(e)=>{
+                    setuser({
+                      ...user,
+                      password:e.target.value
+                    })
+                  }}
                 />
               </div>
             </div>
@@ -111,6 +165,7 @@ function RegisterCard(props) {
               <button
                 type="submit"
                 className="flex w-full  justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-hoverColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                onClick={signupUser}
               >
                 Create account
               </button>
