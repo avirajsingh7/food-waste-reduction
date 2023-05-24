@@ -1,11 +1,11 @@
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { useCallback, useState } from "react";
 
 function Map() {
 
     const { isLoaded } = useJsApiLoader({
       id: "google-map-script",
-      googleMapsApiKey: import.meta.env.REACT_APP_GOOGLE_MAP_API_KEY,
+      googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY,
     });
     const [map, setMap] = useState(null)
 
@@ -28,8 +28,7 @@ function Map() {
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        {/* Child components, such as markers, info windows, etc. */}
-        <></>
+        
       </GoogleMap>
     ) : (
       <div>Loading...</div>
