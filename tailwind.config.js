@@ -10,6 +10,7 @@ export default {
         background: "#fbf4f7",
         accent: "#979196",
         hoverColor: "#d6cc57",
+        green: "#A0C537",
       },
     },
   },

@@ -1,9 +1,18 @@
+import { useLocation } from "react-router-dom";
+import Location from "../components/Location";
 function NearByRestaurants() {
-    return (
-        <div>
-            <Maps />
-        </div>
-    )
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const latitude = params.get("lat");
+  const longitude = params.get("lng");
+  return (
+    <div>
+      <Location
+        latitude={latitude}
+        longitude={longitude}
+      />
+    </div>
+  );
 }
 
 export default NearByRestaurants;

@@ -1,44 +1,19 @@
-import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
-import { useMemo, useState } from "react";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 
-function Location() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY,
-  });
+function Location(props) {
 
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Map />
-}
-
-function Map() {
-  
-  //const center = useMemo(() => ({ lat: 26.86247, lng: 75.76241 }),[]);
-  const [currentLocation, setCurrentLocation] = useState({
-    lat: 26.86247,
-    lng: 75.76241,
-  });
-
-  const getUserLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const userLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        setCurrentLocation(userLocation); // ADDED
-      });
-    } else {
-      // code for legacy browsers
-    }
+  const currentLocation = {
+    lat: parseFloat(props.latitude),
+    lng: parseFloat(props.longitude),
   };
 
   return (
     <GoogleMap
       zoom={20}
       center={currentLocation}
-      mapContainerClassName="w-full h-screen"
+      mapContainerClassName="w-screen h-screen"
     >
-      <MarkerF onLoad={getUserLocation} position={currentLocation} />
+      <MarkerF position={currentLocation} />
     </GoogleMap>
   );
 }
