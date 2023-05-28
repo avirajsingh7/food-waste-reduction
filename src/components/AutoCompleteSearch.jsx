@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {useRef} from "react";
 import { FaSearch } from "react-icons/fa";
 import { TbCurrentLocation } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-import { useLoadScript, Autocomplete} from "@react-google-maps/api";
+import { useLoadScript, Autocomplete } from "@react-google-maps/api";
+
+const libraries = ["places"];
 
 function AutocompleteSearch() {
   const inputRef = useRef();
@@ -40,7 +42,7 @@ function AutocompleteSearch() {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY, // Replace with your actual API key
-    libraries: ["places"],
+    libraries: libraries,
   });
 
   if (loadError) return "Error loading maps";
