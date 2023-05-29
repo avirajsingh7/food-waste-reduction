@@ -4,6 +4,9 @@ import DetectLocation from "./pages/DetectLocationPage";
 import RestaurantPage from "./pages/RestaurantPage";
 import AddRestaurant from "./pages/AddRestaurantForm";
 import NearByRestaurants from "./pages/NearByRestaurants";
+import RestaurantDashBoard from "./pages/RestaurantDashboard";
+import RestaurantInventory from "./pages/RestaurantInventory";
+import Layout from "./Layout";
 
 function App() {
   return (
@@ -17,6 +20,10 @@ function App() {
       <Route path="/your-location" element={<NearByRestaurants />}></Route>
       <Route path="/restaurant" element={<RestaurantPage />}></Route>
       <Route path="/add-restaurants" element={<AddRestaurant />}></Route>
+      <Route path="/restaurant-dashboard/*" element={<Layout />}>
+        <Route index element={<RestaurantDashBoard />}></Route>
+        <Route path="inventory" element={<RestaurantInventory />}></Route>
+      </Route>
     </Routes>
   );
 }

@@ -46,7 +46,7 @@ function AutocompleteSearch() {
   });
 
   if (loadError) return "Error loading maps";
-  if (!isLoaded) return "Loading Maps";
+  if (!isLoaded) return "Loading...";
 
   return (
     <div className="bg-white w-full rounded-xl h-12 flex flex-col items-stretch px-4 shadow-xl">
