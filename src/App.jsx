@@ -7,6 +7,7 @@ import NearByRestaurants from "./pages/NearByRestaurants";
 import RestaurantDashBoard from "./pages/RestaurantDashboard";
 import RestaurantInventory from "./pages/RestaurantInventory";
 import Layout from "./Layout";
+import Requests from "./pages/FoodRequests";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/restaurant-dashboard/*" element={<Layout />}>
         <Route index element={<RestaurantDashBoard />}></Route>
         <Route path="inventory" element={<RestaurantInventory />}></Route>
+        <Route path="requests" element={<Requests />}></Route>
       </Route>
     </Routes>
   );
