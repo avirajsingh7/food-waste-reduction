@@ -1,6 +1,7 @@
 import RestaurantLocationSearch from "./RestaurantLocationSearch";
 import { useState } from "react";
 import Location from "./Location";
+import { Link } from "react-router-dom";
 
 function RestaurantDetails() {
   const [restaurantLocation, setRestaurantLocation] = useState({
@@ -151,6 +152,13 @@ function RestaurantDetails() {
             Verify
           </button>
         </div>
+      </div>
+      <div className="flex items-center justify-center mt-10">
+        <Link to={"/restaurant-dashboard"}>
+          <button className="bg-primary text-sm w-32 h-10 rounded-lg text-white">
+            Submit
+          </button>
+        </Link>
       </div>
     </div>
   );
