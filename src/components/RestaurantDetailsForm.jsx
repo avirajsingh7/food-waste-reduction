@@ -2,16 +2,64 @@ import RestaurantLocationSearch from "./RestaurantLocationSearch";
 import { useState } from "react";
 import Location from "./Location";
 import { Link } from "react-router-dom";
+import {databases} from '../appwrite/appwriteConfig';
+import { Data } from "@react-google-maps/api";
+import { v4 as uuidv4 } from 'uuid';
+import {account} from '../appwrite/appwriteConfig';
 
 function RestaurantDetails() {
+
+
+  const [restaurant,setRestaurant] = useState({
+    rName:"",
+    rAdress:"",
+    rphone:9999999999,
+    lat: -73.97599050000001,
+    long: -73.97599050000001,
+    oName:"",
+    oEmail:"",
+    oPhone:9999999999,
+    userID:""
+  })
+
   const [restaurantLocation, setRestaurantLocation] = useState({
-    lat: 40.6851868,
-    lng: -73.97599050000001,
+    lat: -73.97599050000001,
+    long: -73.97599050000001,
     country: "",
     state: "",
     locality: "",
     postalCode: ""
   });
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+    const uid = uuidv4()
+
+    const promise = databases.createDocument(import.meta.env.VITE_REACT_APP_APPWRITE_DATABASE_ID,
+                      import.meta.env.VITE_REACT_APP_APPWRITE_COLLECTION_ID,
+                      uid,{
+      rName:restaurant.rName,
+      rAdress:restaurant.rAdress,
+      rPhone:restaurant.rphone,
+      lat:restaurant.lat,
+      long:restaurant.long,
+      oName:restaurant.oName,
+      oEmail:restaurant.oEmail,
+      oPhone:restaurant.oPhone,
+      userID:restaurant.userID
+    })
+    promise.then(
+      function(response){
+        console.log(response)
+      },
+      function(error){
+        console.log(error)
+      }
+    )
+  }
+
+
+
 
   return (
     <div className="mt-10">
@@ -26,6 +74,12 @@ function RestaurantDetails() {
               name="restaurantName"
               id=""
               placeholder="Restaurant Name"
+              onChange={(e)=>{
+                setRestaurant({
+                  ...restaurant,
+                  rName:e.target.value
+                })
+              }}
             />
             <input
               className="border rounded-lg w-full p-2"
@@ -33,6 +87,12 @@ function RestaurantDetails() {
               name="restaurantAddress"
               id=""
               placeholder="Restaurant Complete address"
+              onChange={(e)=>{
+                setRestaurant({
+                  ...restaurant,
+                  rAdress:e.target.value
+                })
+              }}
             />
           </form>
           <p className="border-2 rounded-lg p-1 text-xs mt-3 text-textColor">
@@ -51,11 +111,14 @@ function RestaurantDetails() {
               <RestaurantLocationSearch
                 restaurantLocation={restaurantLocation}
                 setRestaurantLocation={setRestaurantLocation}
+                setRestaurant={setRestaurant}
+                restaurant={restaurant}
+                
               />
               <div className="w-full h-80 rounded-xl border mt-3">
                 <Location
                   latitude={restaurantLocation.lat}
-                  longitude={restaurantLocation.lng}
+                  longitude={restaurantLocation.long}
                 />
               </div>
             </div>
@@ -112,6 +175,12 @@ function RestaurantDetails() {
               className="p-2 w-full"
               type="text"
               placeholder="Mobile number at restaurant"
+              onChange={(e)=>{
+                setRestaurant({
+                  ...restaurant,
+                  rphone:e.target.value
+                })
+              }}
             />
           </div>
           <button className="border rounded-lg w-1/3 bg-gray-200">
@@ -131,11 +200,23 @@ function RestaurantDetails() {
             className="p-2 w-5/12 border rounded-lg"
             type="text"
             placeholder="Restaurant owner full name"
+            onChange={(e)=>{
+              setRestaurant({
+                ...restaurant,
+                oName:e.target.value
+              })
+            }}
           />
           <input
             className="p-2 w-5/12 border rounded-lg"
             type="text"
             placeholder="Restaurant owner email address"
+            onChange={(e)=>{
+              setRestaurant({
+                ...restaurant,
+                oEmail:e.target.value
+              })
+            }}
           />
         </div>
         <div className="mt-4 flex gap-24">
@@ -146,6 +227,12 @@ function RestaurantDetails() {
               className="p-2 w-full"
               type="text"
               placeholder="Mobile number at restaurant"
+              onChange={(e)=>{
+                setRestaurant({
+                  ...restaurant,
+                  oPhone:e.target.value
+                })
+              }}
             />
           </div>
           <button className="border rounded-lg w-1/3 bg-gray-200">
@@ -154,11 +241,9 @@ function RestaurantDetails() {
         </div>
       </div>
       <div className="flex items-center justify-center mt-10">
-        <Link to={"/restaurant-dashboard"}>
-          <button className="bg-primary text-sm w-32 h-10 rounded-lg text-white">
+          <button className="bg-primary text-sm w-32 h-10 rounded-lg text-white" onClick={handleSubmit}>
             Submit
           </button>
-        </Link>
       </div>
     </div>
   );

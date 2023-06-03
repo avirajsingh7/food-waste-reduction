@@ -41,7 +41,7 @@ function AutocompleteSearch() {
   };
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY, // Replace with your actual API key
+    googleMapsApiKey: 'AIzaSyAot7-xt-v0yaVON7FtrX8HDZGfA89Hlwc', // Replace with your actual API key
     libraries: libraries,
   });
 
