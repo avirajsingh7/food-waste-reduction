@@ -12,7 +12,8 @@ function RestaurantLocationSearch(props) {
     const place = inputRef.current.getPlace();
       if (place) {
       console.log(place.formatted_address);
-      props.setRestaurantLocation( {
+        props.setRestaurant((prevLocation) => ({
+        ...prevLocation,
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
         country: place.address_components.find(component =>
@@ -27,7 +28,7 @@ function RestaurantLocationSearch(props) {
         postalCode: place.address_components.find(component =>
     component.types.includes("postal_code")
           )?.long_name,        
-      });
+      }));
     }
   };
 
@@ -65,7 +66,7 @@ function RestaurantLocationSearch(props) {
               )?.long_name;
 
               // Update the restaurant location with the postal code
-              props.setRestaurantLocation((prevLocation) => ({
+              props.setRestaurant((prevLocation) => ({
                   ...prevLocation,
                   lat: userLocation.lat,
                   lng: userLocation.lng,

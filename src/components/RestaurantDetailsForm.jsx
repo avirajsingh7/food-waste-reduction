@@ -16,20 +16,24 @@ function RestaurantDetails() {
     rphone:9999999999,
     lat: -73.97599050000001,
     long: -73.97599050000001,
+    country: "",
+    state: "",
+    locality: "",
+    postalCode: "",
     oName:"",
     oEmail:"",
     oPhone:9999999999,
     userID:""
   })
 
-  const [restaurantLocation, setRestaurantLocation] = useState({
-    lat: -73.97599050000001,
-    long: -73.97599050000001,
-    country: "",
-    state: "",
-    locality: "",
-    postalCode: ""
-  });
+  // const [restaurantLocation, setRestaurantLocation] = useState({
+  //   lat: -73.97599050000001,
+  //   long: -73.97599050000001,
+  //   country: "",
+  //   state: "",
+  //   locality: "",
+  //   postalCode: ""
+  // });
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
@@ -109,16 +113,14 @@ function RestaurantDetails() {
             </h5>
             <div className="mt-3">
               <RestaurantLocationSearch
-                restaurantLocation={restaurantLocation}
-                setRestaurantLocation={setRestaurantLocation}
                 setRestaurant={setRestaurant}
                 restaurant={restaurant}
                 
               />
               <div className="w-full h-80 rounded-xl border mt-3">
                 <Location
-                  latitude={restaurantLocation.lat}
-                  longitude={restaurantLocation.long}
+                  latitude={restaurant.lat}
+                  longitude={restaurant.long}
                 />
               </div>
             </div>
@@ -134,28 +136,28 @@ function RestaurantDetails() {
                   type="text"
                   name="Country"
                   id=""
-                  placeholder={restaurantLocation.country}
+                  placeholder={restaurant.country}
                 />
                 <input
                   className="border rounded-lg p-2 w-5/12"
                   type="text"
                   name="pincode"
                   id=""
-                  placeholder={restaurantLocation.postalCode}
+                  placeholder={restaurant.postalCode}
                 />
                 <input
                   className="border rounded-lg p-2 w-5/12"
                   type="text"
                   name="City"
                   id=""
-                  placeholder={restaurantLocation.locality}
+                  placeholder={restaurant.locality}
                 />
                 <input
                   className="border rounded-lg p-2 w-5/12"
                   type="text"
                   name="State"
                   id=""
-                  placeholder={restaurantLocation.state}
+                  placeholder={restaurant.state}
                 />
               </div>
             </div>
